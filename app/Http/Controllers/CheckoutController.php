@@ -99,9 +99,10 @@ class CheckoutController extends Controller
         }
 
         //paypal payment
-        if ($request->payment_method == 'paypal') {
+        if ($request->payment_method == 'momo') {
             # redirect to paypal
-            return redirect(route('paypal.checkout', $order->id));
+            $amount= $this->getNumbers()->get('newTotal');
+            return redirect(route('momo.checkout',[$order->id, $amount]));
 
         }
 

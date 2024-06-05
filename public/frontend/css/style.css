@@ -1,6 +1,6 @@
 /* =================================
 ------------------------------------
-Zimcart | eCommerce Web App
+Tercera | eCommerce Web App
  ------------------------------------
  ====================================*/
 
@@ -136,7 +136,7 @@ ol {
 	padding: 18px 47px 14px;
 	border-radius: 10px;
 	text-transform: uppercase;
-	background: #f51167;
+	background: hsl(202, 92%, 51%);
 	color: #fff;
 	line-height: normal;
 	cursor: pointer;
@@ -331,7 +331,7 @@ ol {
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
-	color: #f51167;
+	color: #117bf5;
 }
 
 .accordion-area .panel-body img {
@@ -423,7 +423,7 @@ ol {
 	min-width: 16px;
 	color: #fff;
 	font-size: 13px;
-	background: #f51167;
+	background: #117bf5;
 	text-align: center;
 	border-radius: 30px;
 	padding: 0 2px;
@@ -463,7 +463,7 @@ ol {
 	font-size: 10px;
 	font-weight: 700;
 	color: #fff;
-	background: #f51167;
+	background: #117bf5;
 	line-height: 1;
 	text-transform: uppercase;
 	left: calc(50% - 21px);
@@ -479,7 +479,7 @@ ol {
 }
 
 .main-menu li:hover>a {
-	color: #f51167;
+	color: #117bf5;
 }
 
 .main-menu .sub-menu {
@@ -513,7 +513,7 @@ ol {
 }
 
 .main-menu .sub-menu li a:hover {
-	color: #f51167;
+	color: #117bf5;
 }
 
 .nav-switch {
@@ -586,7 +586,7 @@ ol {
 	width: 130px;
 	height: 130px;
 	border-radius: 50%;
-	background: #f51167;
+	background: #117bf5;
 	text-align: center;
 	padding-top: 20px;
 	-webkit-transform: rotate(45deg);
@@ -766,7 +766,7 @@ ol {
 }
 
 .feature:nth-child(2) {
-	background: #f51167;
+	background: #117bf5;
 }
 
 .feature:nth-child(2) h2 {
@@ -875,7 +875,7 @@ ol {
 	text-align: center;
 	padding: 5px 0px 1px;
 	min-width: 65px;
-	background: #f51167;
+	background: #117bf5;
 }
 
 .product-item .pi-links {
@@ -1088,7 +1088,7 @@ ol {
 	padding: 7px 16px 1px;
 	border-radius: 2px;
 	border: none;
-	background: #f51167;
+	background: #117bf5;
 	padding: 5px 9px 1px;
 }
 
@@ -1220,12 +1220,12 @@ ol {
 
 .fw-latest-post-widget .lp-content .readmore {
 	font-size: 12px;
-	color: #f51167;
+	color: #117bf5;
 }
 
 .contact-widget .con-info span {
 	float: left;
-	color: #f51167;
+	color: #117bf5;
 	margin-right: 15px;
 	overflow: hidden;
 }
@@ -1371,16 +1371,16 @@ ol {
 	height: 9px;
 	left: 0;
 	top: 13px;
-	border: 1px solid #f51167;
+	border: 1px solid #117bf5;
 	border-radius: 50%;
 }
 
 .category-menu li a:hover {
-	color: #f51167;
+	color: #117bf5;
 }
 
 .category-menu li a:hover:after {
-	background: #f51167;
+	background: #117bf5;
 }
 
 .category-menu li a:last-child a {
@@ -1406,7 +1406,7 @@ ol {
 }
 
 .category-menu li:hover>a {
-	color: #f51167;
+	color: #117bf5;
 }
 
 .category-menu li.active>.sub-menu {
@@ -1557,8 +1557,8 @@ ol {
 }
 
 .fw-color-choose input[type=radio]:checked+label {
-	-webkit-box-shadow: 0 0 0 2px #f51167;
-	box-shadow: 0 0 0 2px #f51167;
+	-webkit-box-shadow: 0 0 0 2px #117bf5;
+	box-shadow: 0 0 0 2px #117bf5;
 }
 
 .fw-color-choose input[type=radio]:checked+label span {
@@ -1603,7 +1603,7 @@ ol {
 }
 
 .fw-size-choose input[type=radio]:checked+label {
-	background: #f51167;
+	background: #117bf5;
 	color: #fff;
 }
 
@@ -1654,7 +1654,7 @@ ol {
 	height: 100%;
 	left: 0;
 	top: 0;
-	border: 2px solid #f51167;
+	border: 2px solid #117bf5;
 	z-index: 1;
 }
 
@@ -1682,7 +1682,7 @@ ol {
 }
 
 .product-details .p-stock span {
-	color: #f51167;
+	color: #117bf5;
 }
 
 .product-details .p-rating {
@@ -1690,7 +1690,7 @@ ol {
 }
 
 .product-details .p-rating i {
-	color: #f51167;
+	color: #117bf5;
 }
 
 .product-details .p-rating i.fa-fade {
@@ -1736,7 +1736,7 @@ ol {
 }
 
 .product-details .fw-size-choose input[type=radio]:checked+label {
-	border: 2px solid #f51167;
+	border: 2px solid #117bf5;
 }
 
 .product-details .fw-size-choose .disable label {
@@ -1962,7 +1962,7 @@ ol {
 }
 
 .cart-table .total-cost {
-	background: #f51167;
+	background: #117bf5;
 	margin: 0 -34px;
 	text-align: right;
 	padding: 22px 0;
@@ -2012,7 +2012,7 @@ ol {
 	text-transform: uppercase;
 	font-size: 16px;
 	font-weight: 700;
-	color: #f51167;
+	color: #117bf5;
 	cursor: pointer;
 }
 
@@ -2042,7 +2042,7 @@ ol {
 	text-transform: uppercase;
 	font-size: 12px;
 	font-weight: 700;
-	color: #f51167;
+	color: #117bf5;
 	cursor: pointer;
 }
 
@@ -2299,7 +2299,7 @@ ol {
 
 .contact-social a:hover {
 	color: #fff;
-	background: #f51167;
+	background: #117bf5;
 }
 
 .contact-form input,
@@ -2377,7 +2377,7 @@ ol {
   position: absolute;
   top: 10px;
   padding-left: 15px;
-  color: #f51167;
+  color: #117bf5;
 }
 
 .form-input input::placeholder{
@@ -2394,7 +2394,7 @@ ol {
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before{
-  background-color: #f51167 !important;
+  background-color: #117bf5 !important;
   border: 0px;
   outline: none;
 }
@@ -2404,7 +2404,7 @@ ol {
   border: none;
   cursor: pointer;
   border-radius: 50px;
-  background: #f51167;
+  background: #117bf5;
   color: #fff;
   font-size: 90%;
   font-weight: bold;
@@ -2414,7 +2414,7 @@ ol {
 }
 
 .form-box button[type="submit"]:hover{
-  background: #f51167;
+  background: #117bf5;
 }
 
 .forget-link, .register-link{
@@ -2604,7 +2604,7 @@ ol {
 		font-size: 10px;
 		font-weight: 700;
 		color: #fff;
-		background: #f51167;
+		background: #117bf5;
 		line-height: 1;
 		text-transform: uppercase;
 		padding: 5px 9px 1px;
@@ -2812,7 +2812,7 @@ ol {
 		padding: 7px 16px 1px;
 		border-radius: 2px;
 		border: none;
-		background: #f51167;
+		background: #117bf5;
 		padding: 5px 9px 1px;
 	}
 

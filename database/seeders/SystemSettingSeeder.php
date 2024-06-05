@@ -15,11 +15,11 @@ class SystemSettingSeeder extends Seeder
     public function run()
     {
         SystemSetting::create([
-        	'name' => 'ZimCart',
-        	'description' => 'The best open source platform in Zimbabwe',
-        	'address' => '50 Rossal Road, Greendale Harare',
-        	'tel' => '+263783044087',
-        	'email' => 'loydtafireyi@gmail.com',
+        	'name' => 'Tercera',
+        	'description' => 'The best medical E-commerce',
+        	'address' => 'Kigali Rwanda',
+        	'tel' => '+254769195528',
+        	'email' => 'kevin.nibeza@gmail.com',
         	'slug' => 'company-info',
             'logo' => asset('frontend/img/logo.png'),
         ]);

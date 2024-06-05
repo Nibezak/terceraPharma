@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Http\Controllers\KpayController; // Import the controller
+
 
 /*
 |--------------------------------------------------------------------------
@@ -10,11 +12,12 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now  something great!
 |
 */
 
 // Open Routes
+Route::post('testing', [KpayController::class, 'paymentProcess'])->name('kpay');
 Route::get('/', 'FrontendController@index')->name('welcome');
 Route::get('on-sale', 'FrontendController@onSale')->name('on-sale');
 Route::get('/category/{slug}', 'FrontendController@category')->name('frontendCategory');
@@ -24,6 +27,8 @@ Route::get('/product/{slug}', 'FrontendController@show')->name('single-product')
 Route::post('/contact', 'FrontendController@contactStore')->name('store-contact');
 Route::get('/about', 'FrontendController@aboutUs')->name('about-us');
 Route::get('/contact', 'FrontendController@contact')->name('contact-us');
+Route::get('/prescription', 'FrontendController@prescription')->name('prescription');
+Route::get('/partners', 'FrontendController@partners')->name('partners');
 Route::get('/terms-and-conditions', 'FrontendController@terms')->name('terms.conditions');
 Route::get('/privacy-policy', 'FrontendController@privacy')->name('privacy.policy');
 
@@ -37,6 +42,8 @@ Route::get('paypal-checkout/{order}', 'PaypalController@paypalCheckout')->name('
 Route::get('paypal-success', 'PaypalController@paypalSuccess')->name('paypal.success');
 Route::get('paypal-cancel', 'PaypalController@paypalCancel')->name('paypal.cancel');
 
+Route::get('momo-checkout/{order}/{amount}', 'MomoController@checkout')->name('momo.checkout');
+Route::post('momo-checkout', 'MomoController@payment');
 
 // Authenticated users routes
 Route::middleware('auth')->group(function () {

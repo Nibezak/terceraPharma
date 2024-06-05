@@ -96,6 +96,18 @@ class FrontendController extends Controller
         return view('categories', compact('products', 'category', 'systemInfo'));
     }
 
+    public function prescription() {
+        $info = SystemSetting::first();
+
+        $products = Product::orderBy('id', 'DESC')->with('photos')->take(4)->get();
+        return view('prescription', compact('info', 'products'));
+    }
+
+    public function partners(){
+        $systemName = SystemSetting::firstOrFail();
+
+        return view('partners', compact('systemName'));
+    }
     // diplay a single category and its products
     public function category($slug)
     {
