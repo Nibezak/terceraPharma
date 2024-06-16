@@ -91,8 +91,8 @@ class MomoController extends Controller
                 'bankid' => '040',
             ]),
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Basic ' . base64_encode('tercera:5Wmo5w'),
                 'Content-Type: application/json',
+                'Authorization: Basic ' . base64_encode('tercera:5Wmo5w'),
             ),
         ));
 
@@ -127,7 +127,7 @@ class MomoController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://pay.esicia.com/',
+            CURLOPT_URL => 'https://pay.esicia.rw/',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
