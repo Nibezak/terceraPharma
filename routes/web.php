@@ -42,7 +42,7 @@ Route::get('paypal-checkout/{order}', 'PaypalController@paypalCheckout')->name('
 Route::get('paypal-success', 'PaypalController@paypalSuccess')->name('paypal.success');
 Route::get('paypal-cancel', 'PaypalController@paypalCancel')->name('paypal.cancel');
 
-Route::get('momo-checkout/{order}/{amount}', 'MomoController@checkout')->name('momo.checkout');
+Route::get('momo-checkout/{order}', 'MomoController@checkout')->name('momo.checkout');
 Route::post('momo-checkout', 'MomoController@payment');
 
 // Authenticated users routes

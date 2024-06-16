@@ -10,7 +10,12 @@
         <form class="bg-white w-full max-w-3xl mx-auto px-4 lg:px-6 py-8 shadow-md rounded-md flex flex-col lg:flex-row"
             method="POST" action="/momo-checkout">
             @csrf
+
             <div class="w-full lg:w-1/2 lg:pr-8 lg:border-r-2 lg:border-slate-300">
+                <input
+                    class="bg-gray-100 w-full py-1 px-2 rounded-md my-4 border border-4 border-gray-200 text-gray-700 shadow-md"
+                    value="{{ $orderNumber }}" name="refNo" />
+
                 <div class="mb-4">
                     <label class="text-neutral-800 font-bold text-sm mb-2 block">Phone Number:</label>
                     <input id="cardNumber" type="text" onclick="hideBackCard()" name="phoneNumber"
@@ -20,7 +25,7 @@
 
                 <div class="mb-4">
                     <label class="text-neutral-800 font-bold text-sm mb-2 block">Amount:</label>
-                    <input id="cardName" type="text" onclick="hideBackCard()" name="amount"
+                    <input id="cardName" type="text" onclick="hideBackCard()"
                         class="flex h-10 disable w-full rounded-md border-2 bg-gray-300 px-4 py-1.5 text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-purple-600 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 undefined"
                         disabled value="{{ $amount }} rwf" />
                 </div>
