@@ -67,7 +67,7 @@ class MomoController extends Controller
 
         // Set CURL
         $curl = curl_init();
-        $PURL = "https://pay.esicia.com"; // Replace with the actual URL
+        $PURL = "https://pay.esicia.rw"; // Replace with the actual URL
         curl_setopt_array($curl, array(
             CURLOPT_URL => $PURL,
             CURLOPT_RETURNTRANSFER => true,
