@@ -85,7 +85,7 @@ class MomoController extends Controller
 
         // Send the payment request to the Kpay API
         $client = new Client([
-            'base_uri' => 'https://pay.esicia.com/',
+            'base_uri' => 'https://pay.esicia.rw/',
             'timeout'  => 30.0,
         ]);
 
