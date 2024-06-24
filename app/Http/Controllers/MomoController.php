@@ -106,11 +106,9 @@ class MomoController extends Controller
                 $order->payment_method = 'PAID';
                 $order->save();
             }
-        
             Cart::destroy();
             dd('successful transaction');
-            // Check the payment status
-            // return $this->successPage();
+
         } else {
             dd($transaction->reply);
         }
