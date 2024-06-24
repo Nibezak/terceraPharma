@@ -101,9 +101,10 @@ class MomoController extends Controller
         $transaction = json_decode($response);
     
         if (isset($transaction->success) && $transaction->success == 1) {
-            dd('success full transaction')
+            Cart::destroy();
+            dd('successful transaction');
             // Check the payment status
-            return $this->successPage();
+            // return $this->successPage();
         } else {
             dd($transaction->reply);
         }
