@@ -101,18 +101,22 @@ class MomoController extends Controller
         $transaction = json_decode($response);
     
         if (isset($transaction->success) && $transaction->success == 1) {
-            $order = Order::find($this->orderId);
-            if ($order) {
-                $order->payment_method = 'PAID';
-                $order->save();
-            }
-            Cart::destroy();
-            dd('successful transaction');
+         return $this->success();
 
         } else {
             dd($transaction->reply);
         }
     }    
+
+    public function success(){
+        $order = Order::find($this->orderId);
+        if ($order) {
+            $order->payment_method = 'PAID';
+            $order->save();
+        }
+        Cart::destroy();
+        dd('successful transaction');
+    }
 
     public function successPage()
     {
