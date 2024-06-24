@@ -105,7 +105,7 @@ class MomoController extends Controller
                 Order::where('id', $this->orderId)
                      ->update(['payment_method' => 'PAID']);
             }
-            dd('payment successful')
+            dd('payment successful');
             
         } else {
             dd($transaction->reply);
