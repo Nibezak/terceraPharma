@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-header">Platform Users</div>
         <div class="card-body">
-            <table class="table table-dark table-bordered table-hover">
+            <table class="table  table-bordered table-hover">
                 <thead>
                     <th>Name</th>
                     <th>Email</th>

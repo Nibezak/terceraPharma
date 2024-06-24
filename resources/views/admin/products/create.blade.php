@@ -24,7 +24,7 @@
             </div>
             <!-- product attributes start-->
             @if (isset($attributes))
-                <table class="table table-dark table-bordered table-hover">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <th>Attribute Name</th>
                         <th>Attribute Value</th>

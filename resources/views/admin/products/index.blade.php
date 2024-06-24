@@ -43,7 +43,7 @@
                 <a href="{{ route('products.create') }}" class="btn btn-dark">Add Product</a>
         </div>
         <div class="card-body">
-            <table class="table table-dark table-bordered table-responsive">
+            <table class="table  table-bordered table-responsive">
                 <thead>
                     <th>#</th>
                     <th>Name</th>

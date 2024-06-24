@@ -16,7 +16,7 @@
                     rwf {{ $order->billing_total }}</strong></div>
             <div class="card-body">
                 <h4>Products Ordered</h4>
-                <table class="table table-bordered table-responsive table-dark">
+                <table class="table table-bordered table-responsive ">
                     <thead>
                         <th>Product Code</th>
                         <th>Product Name</th>
