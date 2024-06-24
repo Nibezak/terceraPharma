@@ -60,7 +60,7 @@
                             <td>{{ $order->billing_address }}</td>
                             <td>{{ $order->billing_city }}</td>
                             <td>rwf {{ $order->billing_total }}</td>
-                            <td>{{ implode(' ', array_slice(explode(' ', str_replace('_', ' ', $order->payment_method)), 1)) }}
+                            <td>{{ $order->payment_method }} </td>
                             </td>
                             <td class="text-capitalize">{{ $order->status }}</td>
                             <td>{{ $order->updated_at }}</td>
