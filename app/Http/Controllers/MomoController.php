@@ -103,7 +103,7 @@ class MomoController extends Controller
 
         if ($err) {
             // there was an error contacting the API
-            dd($err);
+            // dd($err);
             return redirect($redirecturl)->with('error', 'Curl returned error: ' . $err);
         }
 
@@ -151,19 +151,36 @@ class MomoController extends Controller
         $resp = json_decode($response, true);
 
         if ($resp['statusid'] == '02') {
+            // Update the order's payment_method to 'failed'
+            $order = Order::find($this->orderId);
+            if ($order) {
+                $order->payment_method = 'failed';
+                $order->save();
+            }
+        
+            // Flash the error message to the session
+            session()->flash('error', "Payment Failed!");
+            
+            // Redirect to the checkout route
             return redirect()->route('momo.checkout', [$this->orderId]);
         }
+        
         if ($resp['statusid'] == '01') {
             $transaction_id = $payment_id;
             $transaction_details = $resp['statusdesc'];
             // Handle successful payment here (e.g., update order status)
+            $order = Order::find($this->orderId);
+            if ($order) {
+                $order->payment_method = 'successful';
+                $order->save();
+            }
             Session::forget('request');
             Session::forget('payment_id');
             Session::forget('paymentFor');
 
-            session()->flash('success', __('Payment completed!'));
+            session()->flash('success', "Payment Successful, your order is being processed!");
 
-            return redirect()->route('my-profile.show', [$this->orderId]);
+            return redirect(route('my-orders.index'));
         }
     }
 

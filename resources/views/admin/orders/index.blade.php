@@ -37,7 +37,8 @@
                             <td>{{ $order->billing_address }}</td>
                             <td>{{ $order->billing_city }}</td>
                             <td>rwf {{ $order->billing_total }}</td>
-                            <td>{{ $order->payment_method }}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', str_replace('_', ' ', $order->payment_method)), 1)) }}
+                            </td>
                             <td class="text-capitalize">{{ $order->status }}</td>
                             <td>
                                 <a href="{{ route('orders.show', $order->id) }}" class="btn btn-success btn-sm">View

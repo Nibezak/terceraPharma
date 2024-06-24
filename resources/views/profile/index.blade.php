@@ -44,7 +44,7 @@
                                 </tbody>
                             </table>
                             <div class="ml-3">
-                                {{ $orders->links() }}
+                                {{-- {{ $orders->links() }} --}}
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
 
 @section('container')
     <p class="text-center">
-        Welcome To Terceras
+        Welcome To Tercera
     </p>
     <p class="text-center">
         <a href="{{ route('LaravelInstaller::requirements') }}" class="button">

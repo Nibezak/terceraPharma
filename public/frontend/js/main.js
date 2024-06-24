@@ -171,12 +171,12 @@ $(window).on('load', function() {
 		max: maxPrice,
 		values: [minPrice, maxPrice],
 		slide: function (event, ui) {
-			minamount.val('$' + ui.values[0]);
-			maxamount.val('$' + ui.values[1]);
+			minamount.val('rwf ' + ui.values[0]);
+			maxamount.val('rwf ' + ui.values[1]);
 		}
 	});
-	minamount.val('$' + rangeSlider.slider("values", 0));
-	maxamount.val('$' + rangeSlider.slider("values", 1));
+	minamount.val('rwf ' + rangeSlider.slider("values", 0));
+	maxamount.val('rwf ' + rangeSlider.slider("values", 1));
 
 
 	/*-------------------
