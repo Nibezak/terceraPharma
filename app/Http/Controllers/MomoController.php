@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use GuzzleHttp\Client;
 
 class MomoController extends Controller
 {
     public $amount;
     public $order;
+
     public $orderId;
 
     public function checkout($order)
@@ -48,7 +48,6 @@ class MomoController extends Controller
         $amount = $orderCheck->billing_total;
         $email = $orderCheck->billing_email;
         $details = empty($orderCheck->notes) ? "order" : $orderCheck->notes;
-        
         // Split the billing_fullname into first and last name
         $fullName = $orderCheck->billing_fullname;
         $nameParts = explode(' ', $fullName);
@@ -65,51 +64,116 @@ class MomoController extends Controller
         Session::put('request', $request->all());
         Session::put('payment_id', $refNo);
 
-        // Prepare the data for the API request
-        $postData = [
-            'action' => 'pay',
-            'msisdn' => $phoneNumber,
-            'details' => $details,
-            'refid' => $refNo,
-            'amount' => (int)$amount,
-            'currency' => $currency,
-            'email' => $email,
-            'cname' => $firstName . ' ' . $lastName,
-            'cnumber' => $phoneNumber,
-            'pmethod' => 'momo',
-            'retailerid' => $retailerId,
-            'returl' => $retUrl,
-            'redirecturl' => $redirecturl,
-            'bankid' => '040'
-        ];
+        // Set CURL
+        $curl = curl_init();
+        $PURL = "https://pay.esicia.rw"; // Replace with the actual URL
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $PURL,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode([
+                'action' => "pay",
+                'msisdn' => $phoneNumber,
+                'details' => $details,
+                'refid' => $refNo,
+                'amount' => (int)$amount,
+                'currency' => $currency,
+                'email' => $email,
+                'cname' => $firstName . ' ' . $lastName,
+                'cnumber' => $phoneNumber,
+                'pmethod' => "momo",
+                'retailerid' => $retailerId,
+                'returl' => $retUrl,
+                'redirecturl' => $redirecturl,
+                'bankid' => "040",
+            ]),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Basic ' . base64_encode('tercera:5Wmo5w'),
+            ),
+        ));
 
-        // Send the payment request to the Kpay API
-        $client = new Client([
-            'base_uri' => 'https://pay.esicia.rw/',
-            'timeout'  => 30.0,
-        ]);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
 
-        try {
-            $response = $client->post('api/payment', [
-                'json' => $postData,
-                'auth' => ['tercera', '5Wmo5w'], // replace with actual username and password
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ]
-            ]);
-
-            $responseBody = json_decode($response->getBody(), true);
-            
-            if ($responseBody['retcode'] == 0) {
-                // Handle successful response
-                return redirect($responseBody['url']);
-            } else {
-                // Handle errors returned by the API
-                return back()->with('error', 'Payment request failed: ' . $responseBody['statusdesc']);
-            }
-        } catch (\Exception $e) {
-            // Handle Guzzle exceptions
-            return back()->with('error', 'Payment request failed: ' . $e->getMessage());
+        if ($err) {
+            // there was an error contacting the API
+            dd($err);
+            return redirect($redirecturl)->with('error', 'Curl returned error: ' . $err);
         }
+
+        $transaction = json_decode($response);
+  
+        if (!$transaction->url) {
+            // there was an error from the API
+            dd($transaction->reply);
+            return redirect($redirecturl)->with('error', 'API returned error: ' . $transaction->reply);
+        }
+
+        return redirect($transaction->url);
+    }
+
+    public function successPage()
+    {
+        $requestData = Session::get('request');
+        $request = Session::get('request');
+        $paymentFor = Session::get('paymentFor');
+
+        $payment_id = Session::get('payment_id');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://pay.esicia.rw/',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode([
+                'refid' => $payment_id,
+                'action' => 'checkstatus'
+            ]),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Basic ' . base64_encode('tercera:5Wmo5w'),
+                'Content-Type: application/json',
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $resp = json_decode($response, true);
+
+        if ($resp['statusid'] == '02') {
+            return redirect()->route('momo.checkout', [$this->orderId]);
+        }
+        if ($resp['statusid'] == '01') {
+            $transaction_id = $payment_id;
+            $transaction_details = $resp['statusdesc'];
+            // Handle successful payment here (e.g., update order status)
+            Session::forget('request');
+            Session::forget('payment_id');
+            Session::forget('paymentFor');
+
+            session()->flash('success', __('Payment completed!'));
+
+            return redirect()->route('my-profile.show', [$this->orderId]);
+        }
+    }
+
+    public function cancelPayment()
+    {
+        return redirect()->back()->with('error', __('Something went wrong. Please try again'))->withInput();
+    }
+
+    public function returnPayment()
+    {
+        //
     }
 }
