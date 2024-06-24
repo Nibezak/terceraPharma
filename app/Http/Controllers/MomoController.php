@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 
 class MomoController extends Controller
@@ -27,43 +28,35 @@ class MomoController extends Controller
             "orderNumber" => $orderNumber
         ]);
     }
-
     public function payment(Request $request)
     {
         $refNo = $request->refNo;
-        $phoneNumber = $request->phoneNumber;
-        $phoneNumber = str_replace(' ', '', $phoneNumber);
-
+        $phoneNumber = str_replace(' ', '', $request->phoneNumber);
+    
         // Find the order by order_number or fail if not found
         $orderCheck = Order::where('order_number', $refNo)->firstOrFail();
         $orderId = $orderCheck->id;
         $this->orderId = $orderId;
-
+    
         // Get the billing total from the retrieved order
         $currency = 'RWF';
         $retailerId = 61;
         $redirecturl = "https://ter.maicourse.com/my-orders/" . $orderId;
         $retUrl = "https://ter.maicourse.com/momo-checkout/" . $orderId;
-
+    
         $amount = $orderCheck->billing_total;
         $email = $orderCheck->billing_email;
         $details = empty($orderCheck->notes) ? "order" : $orderCheck->notes;
-        // Split the billing_fullname into first and last name
         $fullName = $orderCheck->billing_fullname;
         $nameParts = explode(' ', $fullName);
-
-        if (count($nameParts) === 1) {
-            $firstName = $nameParts[0];
-            $lastName = $nameParts[0];
-        } else {
-            $firstName = $nameParts[0];
-            $lastName = $nameParts[count($nameParts) - 1];
-        }
-
+    
+        $firstName = count($nameParts) === 1 ? $nameParts[0] : $nameParts[0];
+        $lastName = count($nameParts) === 1 ? $nameParts[0] : $nameParts[count($nameParts) - 1];
+    
         // Store request and payment_id in session
         Session::put('request', $request->all());
         Session::put('payment_id', $refNo);
-
+    
         // Set CURL
         $curl = curl_init();
         $PURL = "https://pay.esicia.rw"; // Replace with the actual URL
@@ -97,26 +90,23 @@ class MomoController extends Controller
                 'Authorization: Basic ' . base64_encode('tercera:5Wmo5w'),
             ),
         ));
-
+    
         $response = curl_exec($curl);
         $err = curl_error($curl);
-
+    
         if ($err) {
-            // there was an error contacting the API
-            // dd($err);
-            return redirect($redirecturl)->with('error', 'Curl returned error: ' . $err);
+            return $err;
         }
-
+    
         $transaction = json_decode($response);
-  
-        if (!$transaction->url) {
-            // there was an error from the API
-            dd($transaction->reply);
-            return redirect($redirecturl)->with('error', 'API returned error: ' . $transaction->reply);
+    
+        if (isset($transaction->success) && $transaction->success == 1) {
+            // Check the payment status
+            return $this->successPage();
+        } else {
+            return $transaction->reply;
         }
-
-        return redirect($transaction->url);
-    }
+    }    
 
     public function successPage()
     {
@@ -177,7 +167,8 @@ class MomoController extends Controller
             Session::forget('request');
             Session::forget('payment_id');
             Session::forget('paymentFor');
-
+            Cart::destroy();
+            
             session()->flash('success', "Payment Successful, your order is being processed!");
 
             return redirect(route('my-orders.index'));

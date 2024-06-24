@@ -13,21 +13,44 @@
 
     </nav>
 
-    <div class="card">
+    <div class="card ">
         <div class="card-header">Orders</div>
 
         <div class="card-body">
+            <style>
+                .table th,
+                .table td {
+                    padding: 15px;
+                    text-align: left;
+                }
 
-            <table class="table table-bordered table-hover table-dark table-responsive">
+                .table th {
+                    background-color: #343a40;
+                    color: white;
+                }
+
+                .table-responsive {
+                    overflow-x: auto;
+                }
+
+                .card-body {
+                    padding: 2rem;
+                }
+            </style>
+
+            <table class="table w-full table-bordered table-hover  table-responsive ">
                 <thead>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Amount</th>
-                    <th>Pay Method</th>
-                    <th>Status</th>
-                    <th>Check</th>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Amount</th>
+                        <th>Pay Method</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Check</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($orders as $order)
@@ -40,6 +63,7 @@
                             <td>{{ implode(' ', array_slice(explode(' ', str_replace('_', ' ', $order->payment_method)), 1)) }}
                             </td>
                             <td class="text-capitalize">{{ $order->status }}</td>
+                            <td>{{ $order->updated_at }}</td>
                             <td>
                                 <a href="{{ route('orders.show', $order->id) }}" class="btn btn-success btn-sm">View
                                     Order</a>
@@ -48,7 +72,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $orders->links() }}
         </div>
     </div>
+    {{ $orders->links() }}
 @endsection
