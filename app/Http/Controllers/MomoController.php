@@ -95,7 +95,7 @@ class MomoController extends Controller
         $err = curl_error($curl);
     
         if ($err) {
-            return $err;
+            dd($err);
         }
     
         $transaction = json_decode($response);
@@ -104,7 +104,7 @@ class MomoController extends Controller
             // Check the payment status
             return $this->successPage();
         } else {
-            return $transaction->reply;
+            dd($transaction->reply);
         }
     }    
 
