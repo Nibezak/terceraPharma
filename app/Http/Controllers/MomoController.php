@@ -42,13 +42,12 @@ class MomoController extends Controller
         // Get the billing total from the retrieved order
         $currency = 'RWF';
         $retailerId = 61;
-        $redirecturl = "http://143.110.165.130/my-orders/" . $orderId;
-        $retUrl = "http://143.110.165.130/momo-checkout/" . $orderId;
+        $redirecturl = "https://ter.maicourse.com/my-orders/" . $orderId;
+        $retUrl = "https://ter.maicourse.com/momo-checkout/" . $orderId;
 
         $amount = $orderCheck->billing_total;
         $email = $orderCheck->billing_email;
-        $details = $orderCheck->notes;
-
+        $details = empty($orderCheck->notes) ? "order" : $orderCheck->notes;
         // Split the billing_fullname into first and last name
         $fullName = $orderCheck->billing_fullname;
         $nameParts = explode(' ', $fullName);
@@ -78,17 +77,20 @@ class MomoController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode([
-                'msisdn' => "25".$phoneNumber,
+                'action' => "pay",
+                'msisdn' => $phoneNumber,
                 'details' => $details,
                 'refid' => $refNo,
                 'amount' => (int)$amount,
                 'currency' => $currency,
                 'email' => $email,
                 'cname' => $firstName . ' ' . $lastName,
+                'cnumber' => $phoneNumber,
+                'pmethod' => "momo",
                 'retailerid' => $retailerId,
                 'returl' => $retUrl,
                 'redirecturl' => $redirecturl,
-                'bankid' => '040',
+                'bankid' => "040",
             ]),
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json',
