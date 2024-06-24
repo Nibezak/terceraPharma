@@ -103,7 +103,7 @@ class MomoController extends Controller
         if (isset($transaction->success) && $transaction->success == 1) {
             if (isset($transaction->success) && $transaction->success == 1) {
                 Order::where('id', $this->orderId)
-                     ->update(['payment_method' => 'PAID']);
+                     ->update(['payment_method' => 'OK']);
             }
             dd('payment successful');
             
