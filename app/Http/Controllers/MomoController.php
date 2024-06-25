@@ -11,7 +11,6 @@ class MomoController extends Controller
 {
     public $amount;
     public $order;
-
     public $orderId;
 
     public function checkout($order)
@@ -28,6 +27,7 @@ class MomoController extends Controller
             "orderNumber" => $orderNumber
         ]);
     }
+
     public function payment(Request $request)
     {
         $refNo = $request->refNo;
@@ -105,16 +105,61 @@ class MomoController extends Controller
                 ->update(['payment_method' => 'paynow']);
 
             return redirect()->route('my-orders.index');
-        }
-        // elseif(isset($transaction->reply) && $transaction->reply == "PENDING" && $transaction->retcode == 0) {
-        //     Order::where('id', $this->orderId)
-        //     ->update(['payment_method' => 'paynow']);
+        } elseif (isset($transaction->reply) && $transaction->reply == "PENDING" && $transaction->retcode == 0) {
+            // Check transaction status until it is no longer pending
+            do {
+                sleep(5); // Wait for 5 seconds before rechecking
+                $status = $this->checkTransactionStatus($refNo);
+            } while ($status == "PENDING");
 
-        // } 
-        elseif (isset($transaction->success) && $transaction->success == 0 && $transaction->retcode == 02 || $transaction->retcode == 606) {
+            if ($status == "SUCCESS") {
+                Order::where('id', $this->orderId)
+                    ->update(['payment_method' => 'paynow']);
+
+                return redirect()->route('my-orders.index');
+            } else {
+                Order::where('id', $this->orderId)->delete();
+                return redirect()->route('momo.checkout', [$this->orderId])
+                    ->with('error', 'Payment failed or was cancelled.');
+            }
+        } elseif (isset($transaction->success) && $transaction->success == 0 && ($transaction->retcode == 02 || $transaction->retcode == 606)) {
             Order::where('id', $this->orderId)->delete();
         } else {
             dd($transaction->reply);
+        }
+    }
+
+    public function checkTransactionStatus($refNo)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://pay.esicia.rw/',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode([
+                'refid' => $refNo,
+                'action' => 'checkstatus'
+            ]),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Basic ' . base64_encode('tercera:5Wmo5w'),
+                'Content-Type: application/json',
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $resp = json_decode($response, true);
+
+        if (isset($resp['statusid']) && $resp['statusid'] == '01') {
+            return "SUCCESS";
+        } elseif (isset($resp['statusid']) && $resp['statusid'] == '02') {
+            return "FAILED";
+        } else {
+            return "PENDING";
         }
     }
 
