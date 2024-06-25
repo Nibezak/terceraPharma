@@ -100,14 +100,22 @@ class MomoController extends Controller
     
         $transaction = json_decode($response);
     
-        if (isset($transaction->success) && $transaction->success == 1) {
-            if (isset($transaction->success) && $transaction->success == 1) {
-                Order::where('id', $this->orderId)
-                     ->update(['payment_method' => 'paynow']);
-            }
-            dd('payment successful');
+        if (isset($transaction->success) && $transaction->success == 1 && $transaction->retcode == 01) {
+            Order::where('id', $this->orderId)
+            ->update(['payment_method' => 'paynow']);
+
+            return redirect()->route('my-orders.index');
             
-        } else {
+        } 
+        // elseif(isset($transaction->reply) && $transaction->reply == "PENDING" && $transaction->retcode == 0) {
+        //     Order::where('id', $this->orderId)
+        //     ->update(['payment_method' => 'paynow']);
+            
+        // } 
+        elseif(isset($transaction->success) && $transaction->success == 0 && $transaction->retcode == 02 || $transaction->retcode == 606){
+            Order::where('id', $this->orderId)->delete();
+        }
+        else {
             dd($transaction->reply);
         }
     }    
@@ -147,11 +155,7 @@ class MomoController extends Controller
         if ($resp['statusid'] == '02') {
             // Update the order's payment_method to 'failed'
             $order = Order::find($this->orderId);
-            if ($order) {
-                $order->payment_method = 'failed';
-                $order->save();
-            }
-        
+    
             // Flash the error message to the session
             session()->flash('error', "Payment Failed!");
             
