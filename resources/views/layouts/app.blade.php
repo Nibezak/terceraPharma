@@ -128,6 +128,7 @@
                             <li><a href="{{ route('contactMessages') }}">Messages</a></li>
                             <li><a href="{{ route('social-links.index') }}">Social Links</a></li>
                             <li><a href="{{ route('users.index') }}">Platform Users</a></li>
+                            <li><a href="{{ route('partner.index') }}">Partners</a></li>
                             <li><a href="{{ route('system-settings.index') }}">System Settings</a></li>
                             <li><a href="{{ route('about.index') }}">About Info</a></li>
                             <li><a href="{{ route('privacy.index') }}">Privacy Policy</a></li>

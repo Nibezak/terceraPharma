@@ -1,6 +1,6 @@
 <div class="col-md-5">
     <input wire:model="search" type="text" name="" class="form-control rounded text-center position-relative"
-        placeholder="Search Products">
+        placeholder="Search ">
     @if (strlen($search) > 2)
         @if ($searchResults->count() > 0)
             <ul class="list-group position-absolute mt-2 ml-1 col-md-11">

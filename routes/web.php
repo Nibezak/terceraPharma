@@ -81,4 +81,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::resource('admin/terms', 'Admin\TermsController');
 	Route::resource('admin/privacy', 'Admin\PrivacyPolicyController');
 	Route::resource('admin/social-links', 'Admin\SocialLinkController');
+	Route::get('/admin/partners', 'Admin\PartnerController@index')->name('partner.index');
+	Route::get('/admin/partners/create', 'Admin\PartnerController@create')->name('partner.create');
+	Route::post('/admin/partners/create', 'Admin\PartnerController@store')->name('partner.save');
+	Route::delete('/admin/partners/{partner}','Admin\PartnerController@destroy')->name('partner.delete');
+
+
 });

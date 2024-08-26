@@ -12,22 +12,31 @@ use App\SubCategory;
 use App\PrivacyPolicy;
 use App\SystemSetting;
 use Illuminate\Http\Request;
+use App\Partner; 
+
 
 class FrontendController extends Controller
 {
     // Returns the platform welcome or landing page
     public function index()
-    {
-        $categories = Category::all();
+{
+    $categories = Category::all();
+    
+    // Fetch 4 random products
+    $products = Product::with('category', 'photos')
+                        ->inRandomOrder()
+                        ->limit(4)
+                        ->get();
+    
+    $slides = Slide::all();
+    $systemName = SystemSetting::firstOrFail();
+    $partners = Partner::orderBy('created_at', 'desc')->take(5)->get();
+    $about = About::firstOrFail();
 
-        $products = Product::orderBy('created_at', 'DESC')->with('category', 'photos')->paginate(8); 
 
-        $slides = Slide::all();
+    return view('welcome', compact('products', 'slides', 'categories', 'systemName', 'partners', 'about'));
+}
 
-         $systemName = SystemSetting::firstOrFail();
-
-        return view('welcome', compact('products', 'slides', 'categories', 'systemName'));
-    }
 
     // show single product details
     public function show($slug)
