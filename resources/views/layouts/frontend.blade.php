@@ -8,7 +8,7 @@
     <title>
         Tercera | Affordable Prices for your medicine
     </title>
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" /> --}}
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}" />
@@ -90,7 +90,10 @@
 
 <head>
     @yield('seo')
-
+    <!-- Favicon -->
+    @if ($shareSettings->favicon != null)
+        <link href="/storage/{{ $shareSettings->favicon }}" rel="shortcut icon" />
+    @endif
     <!-- Google Font -->
 
 
@@ -102,7 +105,7 @@
     @yield('css')
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    {{-- @if ($shareSettings->google_analytics != null)
+    @if ($shareSettings->google_analytics != null)
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $shareSettings->google_analytics }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -114,7 +117,7 @@
 
             gtag('config', '{{ $shareSettings->google_analytics }}');
         </script>
-    @endif --}}
+    @endif
 
 </head>
 
