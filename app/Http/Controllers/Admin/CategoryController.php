@@ -87,14 +87,14 @@ class CategoryController extends Controller
     {
         // returns id to identify the comparison of the slug uniqueness
         $id = $category->id;
-
+// dd($id);
+// dd($request);
         $request->validate([
-            'name' => 'required|unique:categories,name' .$id,
-            'slug' => 'unique:categories,slug,' .$id,
+            'name' => 'required|unique:categories,name',
+            'slug' => 'unique:categories,slug,',
         ]);
 
         $slug = Str::slug($request->slug);
-
         $category->update([
             'name' => $request->name,
             'slug' => $slug
