@@ -8,7 +8,7 @@
     <title>
         Tercera | Affordable Prices for your medicine
     </title>
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" /> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}" />
@@ -90,10 +90,7 @@
 
 <head>
     @yield('seo')
-    <!-- Favicon -->
-    @if ($shareSettings->favicon != null)
-        <link href="/storage/{{ $shareSettings->favicon }}" rel="shortcut icon" />
-    @endif
+
     <!-- Google Font -->
 
 
