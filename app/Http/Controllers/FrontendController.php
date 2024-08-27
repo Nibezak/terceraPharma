@@ -34,7 +34,7 @@ class FrontendController extends Controller
     // $about = About::firstOrFail();
 
 
-    return view('welcome', compact('products', 'slides', 'categories', 'systemName', 'partners', 'about'));
+    return view('welcome', compact('products', 'slides', 'categories', 'systemName', 'partners'));
 }
 
 
