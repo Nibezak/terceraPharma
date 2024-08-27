@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\About;
+// use App\About;
 use App\Slide;
 use App\Terms;
 use App\Contact;
@@ -31,7 +31,7 @@ class FrontendController extends Controller
     $slides = Slide::all();
     $systemName = SystemSetting::firstOrFail();
     $partners = Partner::orderBy('created_at', 'desc')->take(5)->get();
-    $about = About::firstOrFail();
+    // $about = About::firstOrFail();
 
 
     return view('welcome', compact('products', 'slides', 'categories', 'systemName', 'partners', 'about'));

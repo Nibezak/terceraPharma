@@ -54,13 +54,14 @@
         <div class="ud-header absolute left-0 top-0 z-40 flex w-full items-center translucent-blue">
             <div class="container">
                 <!-- Header section -->
-                @if ($about !== null)
+                {{-- @if ($about !== null)
                     <marquee>
                         <div>
                             <h5 class="text-white font-semibold text-md">{!! $about->about !!}</h5>
                         </div>
                     </marquee>
-                @endif
+                @endif --}}
+
                 <div class="relative -mx-4 flex items-center justify-between bg-blue-500">
                     <div class="w-60 max-w-12 px-4">
                         <a href="/" class="navbar-logo block w-12 py-1">
