@@ -113,7 +113,7 @@
 							</li> --}}
                             <li>
                                 <input type="radio" name="payment_method" value="cash_on_delivery">
-                                Pay when you get the package
+                                Pay at delivery
                             </li>
 
                         </ul>

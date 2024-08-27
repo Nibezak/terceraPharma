@@ -65,7 +65,7 @@
                     <div class="w-60 max-w-12 px-4">
                         <a href="/" class="navbar-logo block w-12 py-1">
                             <img src="{{ asset('assets/images/logo/logo.png') }}" alt="logo" class="header-logo w-12"
-                                width="150" />
+                                width="400" />
                         </a>
                     </div>
                     <button id="navbarToggler"
