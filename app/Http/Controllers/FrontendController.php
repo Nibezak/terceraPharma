@@ -170,8 +170,8 @@ class FrontendController extends Controller
     // return privacy privacy
     public function aboutUs()
     {
-        $about = About::firstOrFail();
+        // $about = About::firstOrFail();
 
-        return view('about-us', compact('about'));
+        // return view('about-us', compact('about'));
     }
 }
