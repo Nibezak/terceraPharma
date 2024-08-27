@@ -102,7 +102,7 @@
     @yield('css')
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    @if ($shareSettings->google_analytics != null)
+    {{-- @if ($shareSettings->google_analytics != null)
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $shareSettings->google_analytics }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -114,7 +114,7 @@
 
             gtag('config', '{{ $shareSettings->google_analytics }}');
         </script>
-    @endif
+    @endif --}}
 
 </head>
 
