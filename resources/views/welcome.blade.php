@@ -11,6 +11,73 @@
 
 <!-- ====== Hero Section Start -->
 @section('content')
+    @if ($slides->count() > 0)
+        <section class="hero-section">
+            <div class="hero-slider owl-carousel">
+                @foreach ($slides as $slide)
+                    <div class="hs-item set-bg" data-setbg="/storage/{{ $slide->image }}"
+                        style="height: 20rem; width: 100%">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-7 text-white">
+                                    <span>{{ $slide->heading }}</span>
+                                    <p>{{ Str::limit($slide->description, 100) }}</p>
+                                    <a href="/{{ $slide->link }}" class="site-btn sb-line">BUY NOW</a>
+                                    <a href="{{ route('contact-us') }}" class="inquire site-btn sb-white">INQUIRE</a>
+                                </div>
+                            </div>
+                            @if ($slide->from_price != null)
+                                <div class="offer-card text-white">
+                                    <span>from</span>
+                                    <h3>${{ $slide->from_price }}</h3>
+                                    <p>SHOP NOW</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="container">
+                <div class="slide-num-holder" id="snh-1"></div>
+            </div>
+        </section>
+        <!-- Hero section end -->
+
+
+
+        <!-- Features section -->
+        <section class="features-section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 p-0 feature">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="{{ asset('frontend/img/icons/1.png') }}" alt="#">
+                            </div>
+                            <h4>Fast Secure Payments</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0 feature">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="{{ asset('frontend/img/icons/2.png') }}" alt="#">
+                            </div>
+                            <h4 class="text-white">Premium Products</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0 feature">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="{{ asset('frontend/img/icons/3.png') }}" alt="#">
+                            </div>
+                            <h4>Affordable Delivery</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Features section end -->
+    @endif
     <div id="home" class="relative overflow-hidden bg-primary pt-[120px] md:pt-[130px] lg:pt-[160px]">
         <div class="container">
             <div class="-mx-4 flex flex-wrap items-center">
