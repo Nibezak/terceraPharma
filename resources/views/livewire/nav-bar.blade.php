@@ -79,10 +79,11 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="{{ route('frontendCategories') }}">Our Shop</a>
                             <ul class="sub-menu">
-                                @foreach ($navCategories as $cat)
+                                @foreach ($navCategories->sortBy('name') as $cat)
                                     <li><a href="{{ route('frontendCategory', $cat->slug) }}">{{ $cat->name }}</a>
                                     </li>
                                 @endforeach
+
                             </ul>
                         </li>
                         <li><a href="{{ route('on-sale') }}">On Sale
