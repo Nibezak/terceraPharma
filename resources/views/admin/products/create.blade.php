@@ -106,16 +106,25 @@
                         <label for="sub_category_id">Sub-Category (Optional)</label>
                         <select name="sub_category_id" id="sub_category_id"
                             class="form-control @error('sub_category_id') is-invalid @enderror">
-                            @if (isset($product))
-                                @if ($product->sub_category_id != null)
-                                    <option selected value="{{ $product->subCategory->id }}">
-                                        {{ $product->subCategory->name }}</option>
-                                @endif
+
+                            <!-- Default "None" option -->
+                            <option value=""
+                                {{ !isset($product) || $product->sub_category_id == null ? 'selected' : '' }}>None</option>
+
+                            @if (isset($product) && $product->sub_category_id != null)
+                                <option selected value="{{ $product->subCategory->id }}">
+                                    {{ $product->subCategory->name }}
+                                </option>
                             @endif
+
                             @foreach ($subCategories as $cat)
-                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                <option value="{{ $cat->id }}"
+                                    {{ isset($product) && $product->sub_category_id == $cat->id ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
                             @endforeach
                         </select>
+
 
                         @error('sub_category_id')
                             <span class="invalid-feedback" role="alert">
